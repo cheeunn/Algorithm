@@ -26,3 +26,17 @@
 
  <p>입력으로 주어진 숫자 N개의 합을 출력한다.</p>
 
+
+### NOTE
+ - string으로 입력 받아서 숫자 하나하나 처리
+ - string은 입력받은 값 한 칸씩 나누어 char array로 변환
+ - * C++형변환
+   * #include <string>
+   string sNum = "1234";
+   int inum = stoi(sNum);
+   long lnum = stol(sNum);
+   이런식
+   string intToString = to_string(inum);
+   string longToString = to_string(lnum);
+   숫자형을 string으로 바꿀 땐 걍 to_string 하면 됨
+
