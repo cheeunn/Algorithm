@@ -8,55 +8,38 @@ int main() {
 	cin.tie(0);
 	cout.tie(0);
 
-	string str;
-	stack<char> myStack;
-	int length = 0;
 
 	while (true) {
-		bool isBalanced = true;
-		getline(cin, str);
-		if (str.compare(".") == 0) break;
-		length = str.length();
-		for (int i = 0; i < length; i++) {
-			char c = str[i];
-			if (c == '.') break;
-			if (c == '(') {
-				myStack.push(c);
-			}
-			else if (c == '[') {
-				myStack.push(c);
+		string a;
+		getline(cin, a);
+		if (a == ".") break;
+
+		stack<char> s;
+		bool isValid = true;
+		for (auto c : a) {
+			if (c == '(' || c == '[') {
+				s.push(c);
 			}
 			else if (c == ')') {
-				if (!myStack.empty() && myStack.top() == '(') {
-					myStack.pop();
-				}
-				else {
-					isBalanced = false;
+				if (s.empty() || s.top() != '(') {
+					isValid = false;
 					break;
 				}
+				s.pop();
 			}
 			else if (c == ']') {
-				if (!myStack.empty() && myStack.top() == '[') {
-					myStack.pop();
-				}
-				else {
-					isBalanced = false;
+				if (s.empty() || s.top() != '[') {
+					isValid = false;
 					break;
 				}
+				s.pop();
 			}
 		}
-		if (!myStack.empty()) {
-			isBalanced = false;
+		if (!s.empty()) {
+			isValid = false;
 		}
-		while (!myStack.empty()) {
-			myStack.pop();
-		}
-		if (isBalanced) {
-			cout << "yes" << "\n";
-		}
-		else {
-			cout << "no" << "\n";
-		}
+		if (isValid) cout << "yes\n";
+		else cout << "no\n";
 	}
 	
 }
