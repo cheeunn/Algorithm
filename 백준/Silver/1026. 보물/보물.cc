@@ -7,9 +7,6 @@ int n;
 int A[52];
 int B[52];
 
-bool compare(int a, int b) {
-	return a > b;
-}
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
@@ -23,9 +20,9 @@ int main() {
 		cin >> B[i];
 	}
 	sort(A, A + n);
-	sort(B, B + n, compare);
+	sort(B, B + n);
 	for (int i = 0; i < n; i++) {
-		ans += A[i] * B[i];
+		ans += A[i] * B[n - 1 - i];
 	}
 	cout << ans;
 }
