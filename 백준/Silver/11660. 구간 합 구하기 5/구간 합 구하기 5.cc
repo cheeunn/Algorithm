@@ -1,31 +1,28 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
-int main() {
-	
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+int n, m;
+int board[1025][1025];
 
-	int n, m;
-	int x1, y1, x2, y2;
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+
 	cin >> n >> m;
-	int result;
-	vector<vector <int>> A(n + 1, vector<int>(n + 1, 0));
-	vector<vector <int>> D(n + 1, vector<int>(n + 1, 0));
 
 	for (int i = 1; i <= n; i++) {
 		for (int j = 1; j <= n; j++) {
-			cin >> A[i][j];
-			D[i][j] = D[i - 1][j] + D[i][j - 1] - D[i - 1][j - 1] + A[i][j];
-		}
+			int tmp;
+			cin >> tmp;
+			board[i][j] = tmp + board[i - 1][j] + board[i][j - 1] - board[i - 1][j - 1];
+ 		}
 	}
 
-	for (int i = 0; i < m; i++) {
+	while (m--) {
+		int x1, y1, x2, y2;
 		cin >> x1 >> y1 >> x2 >> y2;
-		result = D[x2][y2] - D[x1 - 1][y2] - D[x2][y1 - 1] + D[x1 - 1][y1 - 1];
-		cout << result << "\n";
+		int ans = board[x2][y2] - board[x2][y1 - 1] - board[x1 - 1][y2] + board[x1 - 1][y1 - 1];
+		cout << ans << "\n";
 	}
-
 }
