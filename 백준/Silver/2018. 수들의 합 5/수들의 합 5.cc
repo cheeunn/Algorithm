@@ -1,33 +1,32 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
+int n;
+
 int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
 
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-
-	int n;
 	cin >> n;
-	int start_index = 1;
-	int end_index = 1;
-	int sum = 1, count = 1;
-	 
-	while (end_index != n) {
-		if (sum < n) {
-			end_index++;
-			sum += end_index;
-		}
-		else if (sum > n) {
-			sum -= start_index;
-			start_index++;
+
+	int start = 1, end = 1;
+	int cnt = 1; // n itself 미리 count
+
+	int sum = 1;
+	while (end != n) {
+		if (sum <= n) {
+			if (sum == n) cnt++;
+			end++;
+			sum += end;
 		}
 		else {
-			// sum == n
-			count++;
-			end_index++;
-			sum += end_index;
+			sum -= start;
+			start++;
 		}
 	}
-	cout << count;
+
+	cout << cnt;
+	
 }
