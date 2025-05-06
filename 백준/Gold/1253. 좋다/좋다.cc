@@ -1,47 +1,44 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
 using namespace std;
 
+int n;
+
+
 int main() {
-	ios::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
 
-	int n;
-	int count = 0;
 	cin >> n;
-	vector<int> A(n, 0);
+	vector<int> v(n, 0);
 	for (int i = 0; i < n; i++) {
-		cin >> A[i];
+		cin >> v[i];
 	}
-	sort(A.begin(), A.end());
 
-	for (int k = 0; k < n; k++) {
-		int i = 0, j = n - 1;
-		long target = A[k];
+	sort(v.begin(), v.end());
 
-		while (i < j) {
-			if (A[i] + A[j] == target) {
-				if (i != k && j != k) {
-					count++;
+	int cnt = 0;
+	for (int i = 0; i < n; i++) {
+		int s = 0, e = n - 1;
+		while (s < e) {
+			if (v[s] + v[e] == v[i]) {
+				if (s == i) s++;
+				else if (e == i) e--;
+				else {
+					cnt++;
 					break;
 				}
-				else if (i == k) {
-					i++;
-				}
-				else if (j == k){
-					j--;
-				}
 			}
-			else if (A[i] + A[j] > target) {
-				j--;
+			else if (v[s] + v[e] > v[i]) {
+				e--;
 			}
 			else {
-				i++;
+				s++;
 			}
 		}
 	}
-	cout << count << '\n';
+	cout << cnt;
+
 }
