@@ -1,44 +1,29 @@
 #include <string>
 #include <vector>
-#include <set>
 #include <algorithm>
+#include <set>
 
 using namespace std;
-
-int dfs(string numbers, string number, vector<bool>& v, set<int>& used) {
-    int count = 0;
-    if(number != "") {
-        int num = stoi(number);
-        if(v[num] && used.find(num) == used.end()) {
-            count++;
-            used.insert(num);
-        }
+bool isPrime(int num) {
+    if(num < 2) return false;
+    for(int i = 2; i * i <= num; i++) {
+        if(num % i == 0) return false;
     }
-    for(int i = 0; i < numbers.size(); i++) {
-        string temp = number + numbers[i];
-        string next = "";
-        if(i != 0) next += numbers.substr(0, i);
-        if(i != numbers.size() - 1) next += numbers.substr(i+1, numbers.size() - i -1);
-        count += dfs(next, temp, v, used);
-    }
-    return count;
+    return true;
 }
 
 int solution(string numbers) {
     int answer = 0;
-    sort(numbers.rbegin(), numbers.rend());
-    int num = stoi(numbers);
-    vector<bool> v(num+1, true);
-    v[0] = false;
-    v[1] = false;
-    for(int i = 2; i * i <= num; i++) {
-        int j = i + i;
-        while(j <= num) {
-            v[j] = false;
-            j += i;
+    sort(numbers.begin(), numbers.end());
+    set<int> ans;
+    
+    do {
+        for(int i = 1; i <= numbers.length(); i++) {
+            string sub = numbers.substr(0, i);
+            int temp = stoi(sub);
+            if(isPrime(temp)) ans.insert(temp);
         }
-        set<int> used;
-        answer = dfs(numbers, "", v, used);
-    }
+    } while(next_permutation(numbers.begin(), numbers.end()));
+    answer = ans.size();
     return answer;
 }
