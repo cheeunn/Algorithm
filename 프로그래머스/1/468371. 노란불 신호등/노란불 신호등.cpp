@@ -1,29 +1,27 @@
-#include <string>
-#include <vector>
 #include <bits/stdc++.h>
 
 using namespace std;
 
 int solution(vector<vector<int>> signals) {
     int answer = 0;
-    int len = signals.size();
-    int cycle;
-    int lcd = signals[0][0] + signals[0][1] + signals[0][2];
-    
-    for(int i = 1; i < len; i++) {
-        lcd = lcd * (signals[i][0] + signals[i][1] + signals[i][2]) / gcd(lcd, (signals[i][0] 
-              + signals[i][1] + signals[i][2]));
+    int n = signals.size();
+    int lcd = 1;
+    for(auto s: signals) {
+        int T = s[0] + s[1] + s[2];
+        lcd = lcd / gcd(lcd, T) * T;
     }
     
-    for (int cur = 1; cur <= lcd; cur++) {
-        bool isYellow = true;
-        for(int i = 0; i < len; i++) {
-            cycle = signals[i][0] + signals[i][1] + signals[i][2];
-            if (cur % cycle > signals[i][0] && cur % cycle <= signals[i][0] + signals[i][1]) continue;
-            isYellow = false;
-            break;
+    for(int t = 1; t < lcd; t++) {
+        bool all_yellow = true;
+        for(int i = 0; i < n; i++) {
+            int G = signals[i][0], Y = signals[i][1], R = signals[i][2];
+            int T = G + Y + R;
+            if(t % T <= G || t % T > G + Y) {
+                all_yellow = false;
+                break;
+            }
         }
-        if(isYellow) return cur;
+        if(all_yellow) return t;
     }
     return -1;
 }
