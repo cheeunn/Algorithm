@@ -1,18 +1,15 @@
-#include <string>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 int solution(vector<int> citations) {
     int answer = 0;
-    sort(citations.rbegin(), citations.rend());
-    int tmp;
+    int h;
+    sort(citations.begin(), citations.end(), greater<>());
     
     for(int i = 0; i < citations.size(); i++) {
-        tmp = min(i + 1, citations[i]);
-        answer = max(answer, tmp);
+        h = min(i + 1, citations[i]);
+        answer = max(h, answer); 
     }
-    
     return answer;
 }
