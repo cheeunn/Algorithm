@@ -4,10 +4,14 @@
 using namespace std;
 
 vector<int> solution(int brown, int yellow) {
-    int n = brown / 2 + 2;
-    for (int h = 1; h <= n / 2; h++) {
-        if (h * (n - h) == brown + yellow) {
-            return {n-h, h};
-        }
+    vector<int> answer;
+    int wh = brown / 2 + 2;
+    int h = 3;
+    int w = wh - h;
+    while(w >= h) {
+        if(w * h == brown + yellow) break;
+        w--; h++;
     }
+    
+    return vector<int>{w, h};
 }
