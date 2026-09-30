@@ -1,28 +1,30 @@
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 vector<int> solution(vector<int> answers) {
+    vector<int> score(3, 0);
     vector<int> answer;
-    vector<int> first{1, 2, 3, 4, 5};
-    vector<int> second{2, 1, 2, 3, 2, 4, 2, 5};
-    vector<int> third{3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
-
-    int list[3] = {0, 0, 0};
+    vector<vector<int>> v;
+    vector<int> v1 = {1, 2, 3, 4, 5};
+    vector<int> v2 = {2, 1, 2, 3, 2, 4, 2, 5};
+    vector<int> v3 = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
+    v.push_back(v1);
+    v.push_back(v2);
+    v.push_back(v3);
     
-    int l = answers.size();
-    for(int i = 0; i < l; i++) {
-        if(answers[i] == first[i % 5]) list[0]++;
-        if(answers[i] == second[i % 8]) list[1]++;
-        if(answers[i] == third[i % 10]) list[2]++;
+    for(int i = 0; i < answers.size(); i++) {
+        for (int j = 0; j < 3; j++){
+            if (answers[i] == v[j][i % v[j].size()]) score[j]++;
+        }
     }
-    int mx = 0;
-    for(int a : list) {
-        mx = max(mx, a);
-    }
+    
+    auto mx = max_element(score.begin(), score.end());
     for(int i = 0; i < 3; i++) {
-        if (list[i] == mx) answer.push_back(i+1);
+        if (score[i] == *mx) answer.push_back(i + 1);
     }
+    
     return answer;
 }
