@@ -9,8 +9,7 @@ string solution(vector<string> participant, vector<string> completion) {
     string answer = "";
     unordered_map<string, int> um;
     for(auto name : participant) {
-        if(um.find(name) == um.end()) um.insert({name, 1});
-        else um[name]++;
+        um[name]++;
     }
     
     for (auto name : completion) {
