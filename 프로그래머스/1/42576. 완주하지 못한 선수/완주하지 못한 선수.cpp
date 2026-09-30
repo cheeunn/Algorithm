@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -12,10 +13,9 @@ string solution(vector<string> participant, vector<string> completion) {
     
     for(i = 0; i < completion.size(); i++) {
         if (participant[i] != completion[i]) {
-            break;
+            return participant[i];
         }
     }
-    if (i == participant.size()) answer = participant[i - 1];
-    else answer = participant[i];
-    return answer;
+    return participant[i];
+    
 }
