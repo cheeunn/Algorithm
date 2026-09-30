@@ -1,21 +1,22 @@
 #include <string>
 #include <vector>
-#include <algorithm>
-#include <iostream>
+#include <unordered_map>
 
 using namespace std;
 
 string solution(vector<string> participant, vector<string> completion) {
     string answer = "";
-    int i;
-    sort(participant.begin(), participant.end());
-    sort(completion.begin(), completion.end());
-    
-    for(i = 0; i < completion.size(); i++) {
-        if (participant[i] != completion[i]) {
-            return participant[i];
-        }
+    unordered_map<string, int> um;
+    for(auto name : participant) {
+        if(um.find(name) == um.end()) um.insert(make_pair(name, 1));
+        else um[name]++;
     }
-    return participant[i];
     
+    for (auto name : completion) {
+        um[name]--;
+        if (um[name] == 0) um.erase(name);
+    }
+    
+    for(auto it : um) return it.first;
+
 }
